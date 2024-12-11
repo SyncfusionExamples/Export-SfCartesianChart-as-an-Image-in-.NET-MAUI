@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:chart="clr-namespace:Syncfusion.Maui.Charts;assembly=Syncfusion.Maui.Charts"
+             xmlns:local="clr-namespace:CartesianChartSample"
+             x:Class="CartesianChartSample.MainPage">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="200"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid.BindingContext>
+            <local:ViewModel x:Name="viewModel"/>
+        </Grid.BindingContext>
+
+        <chart:SfCartesianChart Grid.Column="0" x:Name="chart" Background="White">
+
+            <chart:SfCartesianChart.Title>
+                <Label Text="Height and Weight Comparison" HorizontalOptions="Center" FontAttributes="Bold"/>
+            </chart:SfCartesianChart.Title>
+
+            <chart:SfCartesianChart.Legend>
+                <chart:ChartLegend>
+                </chart:ChartLegend>
+            </chart:SfCartesianChart.Legend>
+
+            <chart:SfCartesianChart.XAxes>
+                <chart:CategoryAxis>
+                    <chart:CategoryAxis.Title>
+                        <chart:ChartAxisTitle Text="Names"/>
+                    </chart:CategoryAxis.Title>
+                </chart:CategoryAxis>
+            </chart:SfCartesianChart.XAxes>
+
+            <chart:SfCartesianChart.YAxes>
+                <chart:NumericalAxis Minimum="20" Maximum="200" Interval="20">
+                    <chart:NumericalAxis.Title>
+                        <chart:ChartAxisTitle Text="Height (in cm)"/>
+                    </chart:NumericalAxis.Title>
+                </chart:NumericalAxis>
+                <chart:NumericalAxis Name="series_YAxis" Minimum="20" Maximum="80" Interval="20" CrossesAt="{Static x:Double.MaxValue}">
+                    <chart:NumericalAxis.Title>
+                        <chart:ChartAxisTitle Text="Weight (in kgs)"/>
+                    </chart:NumericalAxis.Title>
+                </chart:NumericalAxis>
+            </chart:SfCartesianChart.YAxes>
+
+            <chart:ColumnSeries ItemsSource="{Binding CartesianData}"
+                            XBindingPath="Name" 
+                            YBindingPath="Height"
+                            EnableTooltip="True"
+                            ShowDataLabels="True"
+                            Label="Height"
+                            LegendIcon="SeriesType">
+            </chart:ColumnSeries>
+
+            <chart:ColumnSeries ItemsSource="{Binding CartesianData}"
+                            XBindingPath="Name" 
+                            YBindingPath="Weight"
+                            EnableTooltip="True"
+                            ShowDataLabels="True"
+                            Label="Weight"
+                            YAxisName="series_YAxis"
+                            LegendIcon="SeriesType">
+            </chart:ColumnSeries>
+
+        </chart:SfCartesianChart>
+        <VerticalStackLayout Grid.Column="1" Spacing="5">
+            <Label Text="Image Formats" FontSize="15" FontAttributes="Bold"/>
+            <Button Text="JPEG" Clicked="Button_Clicked_JPEG"/>
+            <Button Text="PNG" Clicked="Button_Clicked_PNG"/>
+        </VerticalStackLayout>
+    </Grid>
+
+</ContentPage>
